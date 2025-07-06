@@ -5,7 +5,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { DialogTrigger } from "@radix-ui/react-dialog"
 import type { IBook } from "@/types/types"
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../../form"
-import { useForm } from "react-hook-form"
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form"
 import { Popover, PopoverContent, PopoverTrigger } from "../../popover"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
@@ -24,7 +24,7 @@ export function BorrowDialog({ book }: IProps) {
     const form = useForm()
     const [borrowBook, { isLoading, isError }] = useBorrowBookMutation()
 
-    const onSubmit = async (data) => {
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         console.log(data);
         const borrowBookData = {
             book: book._id,

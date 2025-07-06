@@ -12,12 +12,29 @@ import { BookDetailsDialog } from "../bookDetailsDialog/BookDetailsDialog";
 import { UpdateDialog } from "../updateDialog/UpdateDialog";
 import { BorrowDialog } from "../borrowDialog/BorrowDialog";
 import { Button } from "../../button";
+import { useDeleteBookMutation } from "@/redux/api/baseApi";
+import { toast } from "react-toastify";
 
 interface IProps {
     book: IBook
 }
 
 const BookCard = ({ book }: IProps) => {
+    const [deleteBook, {isLoading, isError}] = useDeleteBookMutation()
+    
+    const handleDelete = async(data) => {
+        console.log(data);
+        try {
+            const result = await deleteBook(data).unwrap();
+            console.log("Delete result ", result);
+            if(result.success === true){
+                toast.success("Book deleted successfully!")
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message)
+        }
+    }
     return (
         <Card>
             <CardHeader>
@@ -36,7 +53,7 @@ const BookCard = ({ book }: IProps) => {
                 <BookDetailsDialog book={book} />
                 <UpdateDialog book={book} />
                 <BorrowDialog book={book} />
-                <Button className="outline">Delete</Button>
+                <Button onClick={()=>handleDelete(book._id)}>Delete</Button>
             </CardFooter>
         </Card>
     );
