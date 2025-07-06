@@ -1,8 +1,10 @@
-import BookCard from "@/components/ui/custom-components/BookCard/BookCard";
-import CardSkeleton from "@/components/ui/custom-components/card-skeleton/CardSkeleton";
 import { useGetBooksQuery } from "@/redux/api/baseApi";
+import { Button } from "../../button";
+import BookCard from "../BookCard/BookCard";
+import CardSkeleton from "../card-skeleton/CardSkeleton.js";
+import { Link } from "react-router";
 
-const AllBooks = () => {
+const BookSection = () => {
     const { data, isLoading, isError } = useGetBooksQuery(undefined)
     const books = data;
 
@@ -11,17 +13,18 @@ const AllBooks = () => {
         <div className="my-6 space-y-4">
             <div className="flex gap-2 justify-between">
                 <h2 className="text-xl md:text-2xl font-semibold">Discover Your Next Book</h2>
+                <Link to='/books'><Button>View All</Button></Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
                 {
                     isLoading ?
-                        [...Array(4)].map(item => <CardSkeleton key={item?._id} />)
+                        [...Array(4)].map(item => <CardSkeleton />)
                         :
-                        books?.data.map(book => <BookCard key={book._id} book={book} />)
+                        books?.data.slice(0, 4).map(book => <BookCard key={book._id} book={book} />)
                 }
             </div>
         </div>
     );
 };
 
-export default AllBooks;
+export default BookSection;

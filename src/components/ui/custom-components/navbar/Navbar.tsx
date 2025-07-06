@@ -1,32 +1,63 @@
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router'; // ✅ Use 'react-router-dom' instead of 'react-router'
+import { Menu } from 'lucide-react';
 import "./navbar.css"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'; // ✅ Update based on your actual path
+import { useState } from 'react';
 
 const Navbar = () => {
+    const [open, setOpen] = useState(false)
+    const navLinks = [
+        { name: 'Home', path: '/' },
+        { name: 'Books', path: '/books' },
+        { name: 'Add Book', path: '/add-book' },
+        { name: 'Borrow Summary', path: '/borrow-summary' },
+    ];
 
     return (
-        <div>
-            <div className='flex items-center justify-between container mx-auto px-2 py-4 border-b-1'>
-                <div>
-                    <Link className='font-semibold text-green-500 text-lg' to='/'>BookHive</Link>
-                </div>
-                <div>
-                    <ul className='flex items-center gap-9 font-medium'>
-                        <li className='hover:underline'>
-                            <NavLink to='/'>Home</NavLink>
+        <nav className="bg-green-600 text-white">
+            <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+                {/* Logo */}
+                <Link to="/" className="text-2xl font-bold">
+                    LibraryMate
+                </Link>
+
+                {/* Desktop Menu */}
+                <ul className="hidden md:flex space-x-6 font-medium">
+                    {navLinks.map((link) => (
+                        <li key={link.name}>
+                            <NavLink to={link.path} className="hover:underline">
+                                {link.name}
+                            </NavLink>
                         </li>
-                        <li className='hover:underline'>
-                            <NavLink to='/books'> Books</NavLink>
-                        </li>
-                        <li className='hover:underline'>
-                            <NavLink to='/borrow-summary'> Borrow Summary</NavLink>
-                        </li>
-                        <li className='hover:underline transition-all delay-200'>
-                            <NavLink to='/add-book'> Add Book</NavLink>
-                        </li>
-                    </ul>
+                    ))}
+                </ul>
+
+                {/* Mobile Dropdown Menu */}
+                <div className="md:hidden">
+                    <DropdownMenu open={open} onOpenChange={setOpen}>
+                        <DropdownMenuTrigger asChild>
+                            <button>
+                                <Menu size={24} />
+                            </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="bg-white text-black">
+                            {navLinks.map((link) => (
+                                <DropdownMenuItem onSelect={()=> setOpen(false)} key={link.name}>
+                                    <NavLink to={link.path} className="w-full">
+                                        {link.name}
+                                    </NavLink>
+                                </DropdownMenuItem>
+                            ))}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
             </div>
-        </div>
+        </nav>
     );
 };
 
