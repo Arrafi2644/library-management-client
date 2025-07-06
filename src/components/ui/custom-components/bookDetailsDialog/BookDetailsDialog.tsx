@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../../dialog"
 import { DialogTrigger } from "@radix-ui/react-dialog"
+import type { IBook } from "@/types/types"
 
-export function BookDetailsDialog({ book }) {
+interface IProps {
+    book: IBook
+}
+
+export function BookDetailsDialog({ book }: IProps) {
     return (
         <Dialog>
             <form>
@@ -26,6 +29,9 @@ export function BookDetailsDialog({ book }) {
                                 </div>
                                 <div>
                                     <span className="font-semibold">Author:</span> {book.author}
+                                </div>
+                                  <div>
+                                    <span className="font-semibold">Available copies:</span> {book.copies}
                                 </div>
                                 <div>
                                     <span className="font-semibold">Added at:</span> {new Date(book.createdAt).toLocaleString()}

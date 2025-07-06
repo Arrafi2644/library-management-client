@@ -8,10 +8,10 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import type { IBook } from "@/types/types";
-import { Button } from "../../button";
 import { BookDetailsDialog } from "../bookDetailsDialog/BookDetailsDialog";
 import { UpdateDialog } from "../updateDialog/UpdateDialog";
 import { BorrowDialog } from "../borrowDialog/BorrowDialog";
+import { Button } from "../../button";
 
 interface IProps {
     book: IBook
@@ -34,8 +34,9 @@ const BookCard = ({ book }: IProps) => {
             </CardContent>
             <CardFooter className="flex justify-between gap-2">
                 <BookDetailsDialog book={book} />
-                <UpdateDialog />
-                <BorrowDialog />
+                <UpdateDialog book={book} />
+                <BorrowDialog book={book} />
+                <Button className="outline">Delete</Button>
             </CardFooter>
         </Card>
     );

@@ -26,6 +26,7 @@ const AddBook = () => {
             if(result.data._id){
                 toast.success("Book added successfully")
                 navigate("/books")
+                form.reset()
             }
 
         } catch (error) {
@@ -37,7 +38,7 @@ const AddBook = () => {
 
     
     return (
-        <div className='my-4'>
+        <div className='my-4 max-w-[600px] mx-auto border p-4 rounded-md'>
             <h2 className='text-xl text-center font-semibold'>Add A Book</h2>
 
             <Form {...form}>
