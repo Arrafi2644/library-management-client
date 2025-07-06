@@ -27,6 +27,7 @@ const AddBook = () => {
                 toast.success("Book added successfully")
                 navigate("/books")
                 form.reset()
+               
             }
 
         } catch (error) {
