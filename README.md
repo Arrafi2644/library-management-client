@@ -48,19 +48,18 @@
 
 ## 📦 Installation
 
-```bash
+```
 # Clone the repository
 git clone https://github.com/your-username/librarymate.git
 cd librarymate
 
 # Install dependencies
 npm install
-
+ ``` 
 ▶️ Usage
 Development Server
 ```
 npm run dev
-
 ```
 
 Build for Production
