@@ -53,8 +53,9 @@ const Books = () => {
             header: "Availability",
             cell: ({ row }) => {
                 const available = row.original.available;
+                const copies = row.original.copies;
                 return (
-                    <span className={available ? "text-green-600 font-semibold" : "text-red-600 font-semibold"}>
+                    <span className={available && (copies > 0) ? "text-green-600 font-semibold" : "text-red-600 font-semibold"}>
                         {available ? "Stock In" : "Stock Out"}
                     </span>
                 );
